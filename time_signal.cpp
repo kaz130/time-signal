@@ -7,7 +7,7 @@ void beep(const unsigned int *beepType);
 int main(int argc, char *argv[])
 {
     // ブザーをONにする時間とOFFにする時間を交互に記述する
-    // 単位は ms
+    // 単位は ミリ秒
     const unsigned int  beepTypes[][7] = {
         {1000, 1000, 1000, 0, 0, 0, 0},
         {500, 500, 500, 500, 500, 0, 0},
@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
     } else {
         beepType = 0;
     }
+
     beep(beepTypes[beepType]);
 }
 
@@ -28,6 +29,7 @@ void beep(const unsigned int *beepType)
     // GPIO4(7ピン)を使用
     const int pin = 4;
 
+    // GPIO初期化
     if(wiringPiSetupGpio() == -1) std::exit(1);
     pinMode(pin, OUTPUT);
 
