@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
     } else {
         beepType = 2;
     }
-    std::cout << beepType << std::endl;
     beep(beepTypes[beepType]);
 }
 
@@ -34,14 +33,11 @@ void beep(const unsigned int *beepType)
 
     for (int i = 0; i < 3; i++) {
         digitalWrite(pin, 1);
-        std::cout << "ON" << std::endl;
         delay(beepType[i*2]);
         digitalWrite(pin, 0);
-        std::cout << "OFF" << std::endl;
         delay(beepType[i*2 + 1]);
     }
     digitalWrite(pin, 1);
-    std::cout << "ON" << std::endl;
     delay(beepType[6]);
     digitalWrite(pin, 0);
 }
