@@ -4,7 +4,7 @@
 
 void beep(unsigned int *beepType);
 
-int main()
+int main(int argc, char *argv[])
 {
     // ブザーをONにする時間とOFFにする時間を交互に記述する
     // 単位は ms
@@ -12,8 +12,16 @@ int main()
         {1000, 1000, 1000, 0, 0, 0, 0},
         {500, 500, 500, 500, 500, 0, 0},
         {300, 500, 300, 500, 300, 500, 300}};
+    int beepType;
 
-    beep(beepTypes[2]);
+    if (argc > 1) {
+        beepType = atoi(argv[1]);
+        if (beepType < 0 || beepType >= 3) beepType = 0;
+    } else {
+        beepType = 2;
+    }
+    std::cout << beepType << std::endl;
+    beep(beepTypes[beepType]);
 }
 
 void beep(unsigned int *beepType)
@@ -36,6 +44,5 @@ void beep(unsigned int *beepType)
     std::cout << "ON" << std::endl;
     delay(beepType[6]);
     digitalWrite(pin, 0);
-
 }
 
