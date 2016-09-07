@@ -1,0 +1,12 @@
+# Backup files
+*~
+
+# Object files
+*.o
+
+# Libraries
+*.a
+
+# Executables
+time-signal
+
