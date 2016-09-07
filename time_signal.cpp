@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
         beepType = atoi(argv[1]);
         if (beepType < 0 || beepType >= 3) beepType = 0;
     } else {
-        beepType = 2;
+        beepType = 0;
     }
     beep(beepTypes[beepType]);
 }
