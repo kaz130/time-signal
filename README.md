@@ -1,11 +1,17 @@
 # time-signal
 時報
 
+## コンパイル
+```
+$ make
+```
+
 ## 設定例
 小山高専の授業時間と合わせる場合
 
 授業開始5分前と授業終了時に鳴る
 
+wiringPiによるGPIO制御のため、要root権限
 ```
 sudo crontab -e
 ```
