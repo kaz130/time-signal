@@ -2,29 +2,29 @@
 #include <cstdlib>
 #include <wiringPi.h>
 
-void beep(const unsigned int *beepType);
+void beep(const unsigned int *signal);
 
 int main(int argc, char *argv[])
 {
     // ブザーをONにする時間とOFFにする時間を交互に記述する
     // 単位は ミリ秒
-    const unsigned int  beepTypes[][7] = {
+    const unsigned int  signals[][7] = {
         {1000, 1000, 1000, 0, 0, 0, 0},
         {500, 500, 500, 500, 500, 0, 0},
         {300, 500, 300, 500, 300, 500, 300}};
-    int beepType;
+    int signalIndex;
 
     if (argc > 1) {
-        beepType = atoi(argv[1]);
-        if (beepType < 0 || beepType >= 3) beepType = 0;
+        signalIndex = atoi(argv[1]);
+        if (signalIndex < 0 || signalIndex >= 3) signalIndex = 0;
     } else {
-        beepType = 0;
+        signalIndex = 0;
     }
 
-    beep(beepTypes[beepType]);
+    beep(signals[signalIndex]);
 }
 
-void beep(const unsigned int *beepType)
+void beep(const unsigned int *signal)
 {
     // GPIO4(7ピン)を使用
     const int pin = 4;
@@ -35,12 +35,12 @@ void beep(const unsigned int *beepType)
 
     for (int i = 0; i < 3; i++) {
         digitalWrite(pin, 1);
-        delay(beepType[i*2]);
+        delay(signal[i*2]);
         digitalWrite(pin, 0);
-        delay(beepType[i*2 + 1]);
+        delay(signal[i*2 + 1]);
     }
     digitalWrite(pin, 1);
-    delay(beepType[6]);
+    delay(signal[6]);
     digitalWrite(pin, 0);
 }
 
