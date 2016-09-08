@@ -7,14 +7,13 @@ $ make
 ```
 
 ## 設定例
-小山高専の授業時間と合わせる場合
+小山高専用の設定例。
+wiringPiによるGPIO制御のため、要root権限。
 
-授業開始5分前と授業終了時に鳴る
-
-wiringPiによるGPIO制御のため、要root権限
 ```
 sudo crontab -e
 ```
+
 ```
 45 8 * * 1-5 /home/pi/src/time-signal/time-signal 2
 20 10 * * 1-5 /home/pi/src/time-signal/time-signal 0
