@@ -37,5 +37,4 @@ $ sudo crontab -e
 30 14 * * 1-5 /home/pi/src/time-signal/time-signal 2
 35 14 * * 1-5 /home/pi/src/time-signal/time-signal 4
 5 16 * * 1-5 /home/pi/src/time-signal/time-signal 1
-
 ```
