@@ -2,29 +2,24 @@
 #include <cstdlib>
 #include <wiringPi.h>
 
-void beep(const unsigned int *signal);
+void beep(int time);
 
 int main(int argc, char *argv[])
 {
-    // ブザーをONにする時間とOFFにする時間を交互に記述する
-    // 単位は ミリ秒
-    const unsigned int  signals[][7] = {
-        {1000, 1000, 1000, 0, 0, 0, 0},
-        {500, 500, 500, 500, 500, 0, 0},
-        {300, 500, 300, 500, 300, 500, 300}};
-    int signalIndex;
+    // 1度に鳴らす回数
+    int time;
 
     if (argc > 1) {
-        signalIndex = atoi(argv[1]);
-        if (signalIndex < 0 || signalIndex >= 3) signalIndex = 0;
+        time = atoi(argv[1]);
+        if (time < 0) time = 1;
     } else {
-        signalIndex = 0;
+        time = 1;
     }
 
-    beep(signals[signalIndex]);
+    beep(time);
 }
 
-void beep(const unsigned int *signal)
+void beep(int time)
 {
     // GPIO4(7ピン)を使用
     const int pin = 4;
@@ -33,14 +28,19 @@ void beep(const unsigned int *signal)
     if(wiringPiSetupGpio() == -1) std::exit(1);
     pinMode(pin, OUTPUT);
 
-    for (int i = 0; i < 3; i++) {
+    int howLong = 1000 / time;
+
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < time-1; j++) {
+            digitalWrite(pin, 1);
+            delay(howLong);
+            digitalWrite(pin, 0);
+            delay(howLong);
+        }
         digitalWrite(pin, 1);
-        delay(signal[i*2]);
+        delay(howLong);
         digitalWrite(pin, 0);
-        delay(signal[i*2 + 1]);
+        delay(1000);
     }
-    digitalWrite(pin, 1);
-    delay(signal[6]);
-    digitalWrite(pin, 0);
 }
 
