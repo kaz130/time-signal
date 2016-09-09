@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
 
     if (argc > 1) {
         time = atoi(argv[1]);
-        if (time < 0) time = 1;
+        if (time < 0) time = 0;
     } else {
-        time = 1;
+        time = 0;
     }
 
     beep(time);
