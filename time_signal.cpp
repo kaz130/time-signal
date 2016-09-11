@@ -28,7 +28,12 @@ void beep(int time)
     if(wiringPiSetupGpio() == -1) std::exit(1);
     pinMode(pin, OUTPUT);
 
-    int howLong = 1000 / time;
+    if (time == 0) {
+        digitalWrite(pin, 0);
+        return;
+    }
+
+    int howLong = 1000 / (time * 2 - 1);
 
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < time-1; j++) {
